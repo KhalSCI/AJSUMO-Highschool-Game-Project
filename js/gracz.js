@@ -94,15 +94,7 @@ class Gracz {
         const distanceX = targetXScaled - closestX;
         const distanceY = targetYScaled - closestY;
         const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-    
-        // Debugging: Draw the closest point
-        kontekst.beginPath();
-        kontekst.arc(oknoSzerokosc / 2 + closestX, oknoWysokosc / 2 + closestY, 5, 0, 2 * Math.PI);
-        kontekst.fillStyle = "red";
-        kontekst.fill();
-        kontekst.stroke();
-    
-        // Check if the distance is less than the sum of the radii (collision)
+        // Check ifthe distance is less than the sum of the radii (collision)
         return distance < targetRadius * jednostka;
     }
     checkPowerUpCollision() {
@@ -119,12 +111,12 @@ class Gracz {
     applyPowerUp(type) {
         switch (type) {
             case 'speed':
-                this.silaPrzycisku *= 1.25;
-                this.silaPrzycisku2 *= 1.25;
-                this.maxSpeed *= 2;
-                setTimeout(() => this.silaPrzycisku /= 1.25, 5000);
-                setTimeout(() => this.silaPrzycisku2 /= 1.25, 5000);
-                setTimeout(() => this.maxSpeed /= 2, 5000);
+                this.silaPrzycisku *= 2;
+                this.silaPrzycisku2 *= 1.5;
+                this.maxSpeed *= 1.25;
+                setTimeout(() => this.silaPrzycisku /= 2, 5000);
+                setTimeout(() => this.silaPrzycisku2 /= 1.5, 5000);
+                setTimeout(() => this.maxSpeed /= 1.25, 5000);
                 break;
             case 'points':
                 this.punkty += 1;
@@ -284,7 +276,7 @@ class Gracz {
             this.stickAngle = this.kat; // Update the stick's angle
         }
         if (wcisniety(this.przyciskTyl)) {
-            this.predkosc -= this.silaPrzycisku;
+            this.predkosc -= this.silaPrzycisku*1.5;
             if (this.predkosc < 0) this.predkosc = 0; // Prevent negative speed
         }
         if (wcisniety(this.przyciskLewo)) {
