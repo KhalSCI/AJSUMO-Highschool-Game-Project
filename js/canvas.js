@@ -28,8 +28,6 @@ window.onload=function() {
     zmienRozmiarOkna();
     animacja=setInterval(nastepnaKlatka, 1000/40);
     wyswietlPunkty();
-    generatePowerUps();
-    generatePowerUps();
     setInterval(generatePowerUps,Math.random() * 1000 + 5000);
 }
 function generatePowerUps() {
@@ -43,13 +41,11 @@ function generatePowerUps() {
     powerUps.push(new PowerUp(x / jednostka, y / jednostka, type));
 }
 function wyswietlPunkty() {
-    let kodHTML="";
-    for (let i=0; i<gracze.length; i++) {
-        kodHTML+="<span> Gracz " +(i+1)+ ": ";
-        kodHTML+="<b>" +  gracze[i].punkty  + "</b>";
-        kodHTML+="</span>"
+    let kodHTML = "<h2>Scores:</h2>";
+    for (let i = 0; i < gracze.length; i++) {
+        kodHTML += `<p>Player ${i + 1}: <b>${gracze[i].punkty}</b></p>`;
     }
-    divPunktacja.innerHTML=kodHTML;
+    divPunktacja.innerHTML = kodHTML;
 }
 
 function zmienRozmiarOkna() {

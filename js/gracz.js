@@ -159,41 +159,41 @@ class Gracz {
     }
 	
 	wykryjKolizje() {
-		for (let i=0; i<gracze.length; i++) {
-			if (i!=this.numerek) {
-				//pozycja przeciwnika
-				let przeciwnikX=gracze[i].x;
-				let przeciwnikY=gracze[i].y;
-				
-				//odległość od przeciwnika
-				let odlegloscX=this.x-przeciwnikX;
-				let odlegloscY=this.y-przeciwnikY;
-				
-				let odleglosc=Math.sqrt((odlegloscX*odlegloscX)+(odlegloscY*odlegloscY));
-				
-				if (odleglosc<=(this.wielkosc+gracze[i].wielkosc)) {
-						//tan(kat) = tangens kąta = odlegloscY/odlegloscX
-						//atan - odwrotnosc tangensa   tan(alfa)=x   więc  atan(x)=alfa
-						//tak jak pierwiastek jest odwrotnością kwadratu (x^2=y   więc sqrt(y)=x)
-						let katZderzenia=Math.atan2(odlegloscY,odlegloscX);
-						let roznicaKatow=this.kat-katZderzenia;
-                        let silaUderzenia=Math.sin(roznicaKatow)*this.predkosc;
-                        let silaX=silaUderzenia*Math.cos(roznicaKatow);
-                        let silaY=silaUderzenia*Math.sin(roznicaKatow);
-                        gracze[i].dodajSile(-silaX,-silaY);
-						//punkt zderzenia - środek linii między odkami okregów
-						let zderzenieX=(this.x+przeciwnikX)/2;
-						let zderzenieY=(this.y+przeciwnikY)/2;
-						
-						if (debug) narysujLinie(oknoSzerokosc/2 + zderzenieX*jednostka, oknoWysokosc/2 + zderzenieY*jednostka, 100, katZderzenia-Math.PI/2, 1);
-				}
+        for (let i = 0; i < gracze.length; i++) {
+            if (i != this.numerek) {
+                // pozycja przeciwnika
+                let przeciwnikX = gracze[i].x;
+                let przeciwnikY = gracze[i].y;
+    
+                // odległość od przeciwnika
+                let odlegloscX = this.x - przeciwnikX;
+                let odlegloscY = this.y - przeciwnikY;
+    
+                let odleglosc = Math.sqrt((odlegloscX * odlegloscX) + (odlegloscY * odlegloscY));
+    
+                if (odleglosc <= (this.wielkosc + gracze[i].wielkosc)) {
+                    // tan(kat) = tangens kąta = odlegloscY/odlegloscX
+                    // atan - odwrotnosc tangensa   tan(alfa)=x   więc  atan(x)=alfa
+                    // tak jak pierwiastek jest odwrotnością kwadratu (x^2=y   więc sqrt(y)=x)
+                    let katZderzenia = Math.atan2(odlegloscY, odlegloscX);
+                    let roznicaKatow = this.kat - katZderzenia;
+                    let silaUderzenia = Math.sin(roznicaKatow) * this.predkosc * 2; // Increase the impact force
+                    let silaX = silaUderzenia * Math.cos(roznicaKatow);
+                    let silaY = silaUderzenia * Math.sin(roznicaKatow);
+                    gracze[i].dodajSile(-silaX, -silaY);
+                    // punkt zderzenia - środek linii między odkami okregów
+                    let zderzenieX = (this.x + przeciwnikX) / 2;
+                    let zderzenieY = (this.y + przeciwnikY) / 2;
+    
+                    if (debug) narysujLinie(oknoSzerokosc / 2 + zderzenieX * jednostka, oknoWysokosc / 2 + zderzenieY * jednostka, 100, katZderzenia - Math.PI / 2, 1);
+                }
                 if (this.checkStickCollision(przeciwnikX, przeciwnikY, gracze[i].wielkosc)) {
                     this.punkty++;
                     wyswietlPunkty();
                 }
-			}
-		}
-	}
+            }
+        }
+    }
 
     rusz() {
         this.obliczPrzyspieszenie();
